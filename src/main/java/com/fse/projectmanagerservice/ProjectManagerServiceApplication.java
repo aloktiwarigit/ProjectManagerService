@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class ProjectmanagerserviceApplication {
+public class ProjectManagerServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjectmanagerserviceApplication.class, args);
+		SpringApplication.run(ProjectManagerServiceApplication.class, args);
 	}
 
 }

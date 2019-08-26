@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Repository;
@@ -30,10 +29,6 @@ public class ParentTask {
 	@Column(name = "parent_task")
 	private String parentTask;
 	
-	@ManyToOne
-	@Getter
-	@Setter
-	private Task task;
 	
 	
 	

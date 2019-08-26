@@ -6,14 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Repository;
+
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Repository
+
 @Entity
 @Table(name="user")
 public class User {
@@ -43,6 +44,7 @@ public class User {
 	
 	@Getter
 	@Setter
+	@ManyToOne
 	@JoinColumn(name = "projectID")
 	private Project project;
 	

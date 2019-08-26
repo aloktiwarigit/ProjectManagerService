@@ -51,7 +51,7 @@ public class Project {
 	@Getter
 	@Setter
 	@Column(name = "priority")
-	private String priority;
+	private int priority;
 	
 	
 	

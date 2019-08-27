@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(long userId, UserModel userModel) {
 		
-		User user = userDao.findById(userId).get();
+		
 		populateEntityObj(userModel);
 		
 		

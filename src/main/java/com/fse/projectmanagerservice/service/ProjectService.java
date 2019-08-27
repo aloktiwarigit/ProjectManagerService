@@ -3,17 +3,20 @@ package com.fse.projectmanagerservice.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-
 import com.fse.projectmanagerservice.entity.Project;
+import com.fse.projectmanagerservice.model.ProjectModel;
 
-@Component
+
+
 public interface ProjectService {
 	
 
-	public Project addProject(Project project);
+	public Project addProject(ProjectModel projModel);
 
-	public List<Project> getAllProjects();
+	public List<ProjectModel> getAllProjects();
+	
+	public ProjectModel updateProject(long projectId,ProjectModel projectModel);
+	
+	public void deleteProject(long projectId);
 
 }

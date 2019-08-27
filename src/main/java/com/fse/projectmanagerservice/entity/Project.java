@@ -7,17 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Repository
+
 @Entity
 @Table(name="project")
 public class Project {
@@ -48,11 +50,18 @@ public class Project {
 	@Column(name = "end_date")
 	private Date endDate;
 	
+	
 	@Getter
 	@Setter
 	@Column(name = "priority")
 	private int priority;
 	
+	@Getter
+	@Setter
+	@ManyToOne
+	@JoinColumn(name = "userID")
+	@JsonBackReference
+	private User user;	
 	
 	
 	

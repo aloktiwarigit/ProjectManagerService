@@ -82,7 +82,7 @@ public class ProjectServiceImpl implements ProjectService{
 			projModel.setStartDt(project.getStartDate());
 			projModel.setPriority(project.getPriority());
 			projModel.setProjectDesc(project.getProjectName());
-			projModel.setManagerId(project.getUser().getUserID());
+			projModel.setManagerId(project.getUserProject().getUserID());
 			projModel.setProjId(project.getProjectID());
 			projModelList.add(projModel);
 			
@@ -102,7 +102,7 @@ public class ProjectServiceImpl implements ProjectService{
 		projEntity.setEndDate(projectModel.getEndDt());
 		projEntity.setStartDate(projectModel.getStartDt());
 		projEntity.setProjectName(projectModel.getProjectDesc());
-		projEntity.setUser(userDao.findById(projectModel.getManagerId()).get());
+		projEntity.setUserProject(userDao.findById(projectModel.getManagerId()).get());
 		
 		
 		

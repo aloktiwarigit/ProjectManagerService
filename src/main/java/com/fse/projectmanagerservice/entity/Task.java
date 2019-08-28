@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,10 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,25 +35,31 @@ public class Task {
 	@Setter
 	private long taskID;
 
-
-
-	@ManyToOne
-	@Getter
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "projectID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @Getter
 	@Setter
-	@JoinColumn(name = "projectID")
-	private Project projectID;
+    private Project project;
 	
-	@ManyToOne
-	@Getter
-	@Setter
-	@JoinColumn(name = "userID")
-	private User user;
 	
-	@ManyToOne
-	@Getter
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "parentID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @Getter
 	@Setter
-	@JoinColumn(name = "parentID")
-	private ParentTask parentTask;
+    private ParentTask parentTask;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    @Getter
+	@Setter
+    private User user;
+	
 	
 	@Getter
 	@Setter
@@ -79,5 +89,8 @@ public class Task {
 	@Setter
 	@Column(name = "status")
 	private String status;
+	
+
+	
 
 }

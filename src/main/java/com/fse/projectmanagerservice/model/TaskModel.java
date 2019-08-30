@@ -29,6 +29,10 @@ public class TaskModel {
 	
 	@Getter
 	@Setter
+	private String parentDesc;
+	
+	@Getter
+	@Setter
 	private String taskStatus;
 	
 	@Getter

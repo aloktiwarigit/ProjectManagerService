@@ -14,6 +14,15 @@ public class ProjectModel {
 	@Getter
 	@Setter
 	private long projId;
+	
+	@Getter
+	@Setter
+	private int noOfTask;
+	
+	@Getter
+	@Setter
+	private int completed;
+	
 	@Getter
 	@Setter
 	private int priority;

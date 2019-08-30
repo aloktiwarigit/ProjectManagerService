@@ -1,7 +1,10 @@
 package com.fse.projectmanagerservice.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,14 +13,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -67,6 +73,12 @@ public class Project {
 	@Setter
     @JsonIgnore
     private User userProject;
+	
+	@Getter
+	@Setter
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval= true, mappedBy="project" , fetch=FetchType.EAGER)
+	private Set<Task> taskList =new HashSet<Task>();
 	
 	
 	

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fse.projectmanagerservice.entity.Project;
 import com.fse.projectmanagerservice.model.ProjectModel;
-
+import com.fse.projectmanagerservice.model.TaskModel;
 import com.fse.projectmanagerservice.service.ProjectService;
 
 @RestController
@@ -33,7 +33,7 @@ public class ProjectController {
 			"application/json" })
 	public ProjectModel addProject(@RequestBody ProjectModel projectModel) {
 
-		System.out.println("Adding Manager ID" + projectModel.getManagerId());
+		System.out.println("Adding Project ID" + projectModel.getProjId());
 		System.out.println("Adding End Date" + projectModel.getEndDt());
 		System.out.println("Adding Start Date" + projectModel.getEndDt());
 		System.out.println("Adding Project Desc" + projectModel.getProjectDesc());
@@ -46,17 +46,26 @@ public class ProjectController {
 
 	@RequestMapping(path = "/getAllProjects", method = RequestMethod.GET, produces = { "application/json",
 			"application/xml" })
-	public ResponseEntity<List<ProjectModel>> getAllUsers() {
-		
-		
+	public ResponseEntity<List<ProjectModel>> getAllProjects() {
+
 		List<ProjectModel> ProjModelList = projectService.getAllProjects();
 		return ResponseEntity.ok().header("Custom-Header", "foo").body(ProjModelList);
 
 	}
+
+	@RequestMapping(path = "/getProjectTasks/{projID}", method = RequestMethod.GET, produces = { "application/json",
+			"application/xml" })
+	public ResponseEntity<List<TaskModel>> getProjectTasks(@PathVariable("projID") Long projID) {
+
+		List<TaskModel> taskModelList = projectService.getProjectTasks(projID);
+		return ResponseEntity.ok().header("Custom-Header", "foo").body(taskModelList);
+
+	}
+
 	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(value = "/updateProject/{projectId}", method = RequestMethod.PUT, produces = { "application/json" }, consumes = {
-			"application/json" })
+
+	@CrossOrigin(origins="http://localhost:4200")@RequestMapping(value="/updateProject/{projectId}",method=RequestMethod.PUT,produces={"application/json"},consumes={"application/json"})
+
 	public  ProjectModel updateProject(@RequestBody @Valid ProjectModel projectModel,@PathVariable("projectId") Long projectId) {
 
 		try {
@@ -68,15 +77,13 @@ public class ProjectController {
 
 		return projectModel;
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/deleteProject/{projectId}", method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable("projectId") Long projectId) {
-		
-		
-	projectService.deleteProject(projectId);
+
+		projectService.deleteProject(projectId);
 
 	}
-
 
 }

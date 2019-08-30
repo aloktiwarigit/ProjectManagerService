@@ -2,14 +2,19 @@ package com.fse.projectmanagerservice.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fse.projectmanagerservice.dao.ProjectDao;
+import com.fse.projectmanagerservice.dao.TaskDao;
 import com.fse.projectmanagerservice.dao.UserDao;
 import com.fse.projectmanagerservice.entity.Project;
+import com.fse.projectmanagerservice.entity.Task;
 import com.fse.projectmanagerservice.model.ProjectModel;
+import com.fse.projectmanagerservice.model.TaskModel;
 import com.fse.projectmanagerservice.service.ProjectService;
 
 @Service
@@ -20,9 +25,14 @@ public class ProjectServiceImpl implements ProjectService{
 	ProjectDao projectDao;
 	
 	@Autowired
+	TaskDao taskDao;
+	
+	@Autowired
 	UserDao userDao;
 	
-	Project projEntity = new Project();
+	Project projEntity;
+	
+	Task taskEntity = new Task();
 	
 	
 	@Override
@@ -73,7 +83,7 @@ public class ProjectServiceImpl implements ProjectService{
 	
 	private void populateModelListObj(List<ProjectModel> projModelList, List<Project> projEntity) 
 	{
-		
+		 
 		for (Project project:projEntity)
 		{
 			ProjectModel projModel = new ProjectModel();
@@ -84,6 +94,15 @@ public class ProjectServiceImpl implements ProjectService{
 			projModel.setProjectDesc(project.getProjectName());
 			projModel.setManagerId(project.getUserProject().getUserID());
 			projModel.setProjId(project.getProjectID());
+			
+			List<Task> activeTaskList = project.getTaskList().stream()
+					.filter(task -> "1".equals(task.getStatus()))
+					.collect(Collectors.toList());
+			
+			System.out.println("Project:"+ project.getProjectID()+ "activeTaskList:" + activeTaskList.size());
+			
+			projModel.setCompleted(activeTaskList.size());
+	        projModel.setNoOfTask(project.getTaskList().size());
 			projModelList.add(projModel);
 			
 		}
@@ -95,8 +114,7 @@ public class ProjectServiceImpl implements ProjectService{
 	
 	private void populateEntityObj(ProjectModel projectModel) 
 	{
-		
-		
+		projEntity = new Project();
 		projEntity.setProjectID(projectModel.getProjId());
 		projEntity.setPriority(projectModel.getPriority());
 		projEntity.setEndDate(projectModel.getEndDt());
@@ -104,6 +122,46 @@ public class ProjectServiceImpl implements ProjectService{
 		projEntity.setProjectName(projectModel.getProjectDesc());
 		projEntity.setUserProject(userDao.findById(projectModel.getManagerId()).get());
 		
+		
+		
+	}
+
+	private void populateTaskModelListObj(List<TaskModel> taskModelList, Set<Task> taskEntity) 
+	{
+		
+		for (Task task:taskEntity)
+		{
+			TaskModel taskModel = new TaskModel();
+			taskModel.setParentId(task.getParentTask().getParentID());
+			taskModel.setEndDt(task.getEndDate());
+			taskModel.setPriority(task.getPriority());
+			taskModel.setProjectId(task.getProject().getProjectID());
+			taskModel.setStartDt(task.getStartDate());
+			taskModel.setTaskDescription(task.getTaskName());
+			taskModel.setTaskId(task.getTaskID());
+			taskModel.setTaskStatus(task.getStatus());
+			taskModel.setUserId(task.getUser().getUserID());
+			taskModel.setParentDesc(task.getParentTask().getParentTask());
+			
+			taskModelList.add(taskModel);
+			
+		}
+		
+		
+		
+	}
+	
+	
+	@Override
+	public List<TaskModel> getProjectTasks(long projID) {
+		
+		List<TaskModel> taskModelList = new ArrayList<TaskModel>();
+		
+		projEntity =  projectDao.findById(projID).get();
+		Set<Task> taskList =  projEntity.getTaskList();
+		populateTaskModelListObj(taskModelList,taskList);
+		return taskModelList;
+
 		
 		
 	}

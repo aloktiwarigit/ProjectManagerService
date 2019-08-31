@@ -6,49 +6,35 @@ import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Component
+@ToString
+@Getter
+@Setter
 public class TaskModel {
 	
 	
-	@Getter
-	@Setter
 	private long parentId ;
 	
-	@Getter
-	@Setter
 	private long userId;
 	
-	@Getter
-	@Setter
 	private long projectId;
 	
-	@Getter
-	@Setter
 	private int priority ;
 	
-	@Getter
-	@Setter
 	private String parentDesc;
 	
-	@Getter
-	@Setter
 	private String taskStatus;
 	
-	@Getter
-	@Setter
 	private String taskDescription;
 	
-	@Getter
-	@Setter
 	private Date startDt;
 	
-	@Getter
-	@Setter
 	private Date endDt;
 	
-	@Getter
-	@Setter
 	private long taskId;
 
+
+	
 }

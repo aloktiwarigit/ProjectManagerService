@@ -18,9 +18,12 @@ import com.fse.projectmanagerservice.model.ProjectModel;
 import com.fse.projectmanagerservice.model.TaskModel;
 import com.fse.projectmanagerservice.service.ProjectService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/Project")
+@Slf4j
 public class ProjectController {
 
 	@Autowired
@@ -32,15 +35,9 @@ public class ProjectController {
 	@RequestMapping(value = "/addProject", method = RequestMethod.POST, produces = { "application/json" }, consumes = {
 			"application/json" })
 	public ProjectModel addProject(@RequestBody ProjectModel projectModel) {
-
-		System.out.println("Adding Project ID" + projectModel.getProjId());
-		System.out.println("Adding End Date" + projectModel.getEndDt());
-		System.out.println("Adding Start Date" + projectModel.getEndDt());
-		System.out.println("Adding Project Desc" + projectModel.getProjectDesc());
-		System.out.println("Adding Project priority:" + projectModel.getPriority());
-
+		log.info("Recieved The Request From UI :" + projectModel.toString());
 		projectService.addProject(projectModel);
-
+		
 		return projectModel;
 	}
 
@@ -48,8 +45,10 @@ public class ProjectController {
 			"application/xml" })
 	public ResponseEntity<List<ProjectModel>> getAllProjects() {
 
-		List<ProjectModel> ProjModelList = projectService.getAllProjects();
-		return ResponseEntity.ok().header("Custom-Header", "foo").body(ProjModelList);
+		log.info("Recieved The Request From UI for getAllProject" );
+		List<ProjectModel> projModelList = projectService.getAllProjects();
+		log.info("Returning Project Model " + projModelList.toString());
+		return ResponseEntity.ok().body(projModelList);
 
 	}
 

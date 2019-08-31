@@ -23,63 +23,28 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserModel userModel;
 	
+	@Autowired
+	ProjectUtils projUtils;
+	
 	
 	@Override
 	public List<UserModel> getAllUsers() {
 		
 		List<UserModel> userModelList = new ArrayList<UserModel>();
-		populateModelListObj(userModelList, userDao.findAll());
+		userModelList = projUtils.populateUserModelListObj(userModelList, userDao.findAll());
 		return userModelList;
 	}
 
 	@Override
 	public UserModel addUser(UserModel user)
 	{
-		populateEntityObj(user);
-		populateModelObj(user, userDao.save(userEntity));;
+		userEntity = projUtils.populateUserEntityObj(user,userEntity);
+		user = projUtils.populateUserModelObj(user, userDao.save(userEntity));;
 		return user;
 		
 	}
 	
-	private void populateModelListObj(List<UserModel> userModelList, List<User> userEntity) 
-	{
-		
-		for (User user:userEntity)
-		{
-			UserModel userModel = new UserModel();
-			userModel.setUserId(user.getUserID());
-			userModel.setEmpId(user.getEmployeeID());
-			userModel.setFstName(user.getFirstName());
-			userModel.setLstName(user.getLastName());
-			userModelList.add(userModel);
-			
-		}
-		
-		
-		
-	}
 	
-	private void populateModelObj(UserModel userModel, User userEntity) 
-	{
-		
-		
-			userModel = new UserModel();
-			userModel.setUserId(userEntity.getUserID());
-			userModel.setEmpId(userEntity.getEmployeeID());
-			userModel.setFstName(userEntity.getFirstName());
-			userModel.setLstName(userEntity.getLastName());
-				
-	}
-	
-	private void populateEntityObj(UserModel userModel) 
-	{
-			userEntity = new User();
-			userEntity.setUserID(userModel.getUserId());
-			userEntity.setEmployeeID(userModel.getEmpId());
-			userEntity.setFirstName(userModel.getFstName());
-			userEntity.setLastName(userModel.getLstName());
-	}
-
 	@Override
 	public void deleteUser(long userId) {
 		
@@ -91,7 +56,7 @@ public class UserServiceImpl implements UserService{
 	public void updateUser(long userId, UserModel userModel) {
 		
 		
-		populateEntityObj(userModel);
+		userEntity = projUtils.populateUserEntityObj(userModel,userEntity);
 		
 		
 		userDao.save(userEntity);

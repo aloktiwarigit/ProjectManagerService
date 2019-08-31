@@ -20,6 +20,9 @@ public class ParentTaskServiceImpl implements ParentTaskService {
 	@Autowired
 	ParentTaskDao parentTaskDao;
 	
+	@Autowired
+	ProjectUtils projUtils;
+	
 	
 	@Override
 	public ParentTaskModel addParentTask(ParentTaskModel parentTaskModel)
@@ -33,25 +36,10 @@ public class ParentTaskServiceImpl implements ParentTaskService {
 	public List<ParentTaskModel> getAllParentTasks()
 	{
 		List<ParentTaskModel> parentTaskModelList = new ArrayList<ParentTaskModel>();
-		populateModelListObj(parentTaskModelList,parentTaskDao.findAll());
-		
+		projUtils.populateParentTaskModelListObj(parentTaskModelList,parentTaskDao.findAll());
 		return parentTaskModelList;
 	}
 	
-	private void populateModelListObj(List<ParentTaskModel> parentTaskModelList, List<ParentTask> parentTaskEntity) 
-	{
-		
-		for (ParentTask parentTask:parentTaskEntity)
-		{
-			ParentTaskModel parentTaskModel = new ParentTaskModel();
-			parentTaskModel.setParentId(parentTask.getParentID());
-			parentTaskModel.setParentTask(parentTask.getParentTask());
-			parentTaskModelList.add(parentTaskModel);
-			
-		}
-		
-		
-		
-	}
+	
 	
 }

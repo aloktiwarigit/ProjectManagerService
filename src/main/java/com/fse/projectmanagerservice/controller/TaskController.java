@@ -63,7 +63,7 @@ public class TaskController {
 			"application/xml" })
 	public ResponseEntity<List<ParentTaskModel>> getAllParentTasks() {
 		List<ParentTaskModel> parentTaskModelList = parentTaskService.getAllParentTasks();
-		return ResponseEntity.ok().header("Custom-Header", "foo").body(parentTaskModelList);
+		return ResponseEntity.ok().body(parentTaskModelList);
 
 	}
 
@@ -71,7 +71,7 @@ public class TaskController {
 			"application/xml" })
 	public ResponseEntity<List<TaskModel>> getAllTasks() {
 		List<TaskModel> TaskModelList = taskService.getAllTasks();
-		return ResponseEntity.ok().header("Custom-Header", "foo").body(TaskModelList);
+		return ResponseEntity.ok().body(TaskModelList);
 
 	}
 	

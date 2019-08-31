@@ -27,21 +27,19 @@ import lombok.Setter;
 @Repository
 @Entity
 @Table(name = "task")
+@Getter
+@Setter
 public class Task {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "task_id")
-	@Getter
-	@Setter
 	private long taskID;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "projectID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    @Getter
-	@Setter
     private Project project;
 	
 	
@@ -49,8 +47,6 @@ public class Task {
     @JoinColumn(name = "parentID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    @Getter
-	@Setter
 	@Nullable
 	private ParentTask parentTask;
 	
@@ -58,41 +54,26 @@ public class Task {
     @JoinColumn(name = "userID", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    @Getter
-	@Setter
     private User user;
 	
 	
-	@Getter
-	@Setter
 	@Column(name = "task")
 	private String taskName;
 	
-	@Getter
-	@Setter
 	@Column(name = "start_date")
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date startDate;
 	
-	@Getter
-	@Setter
 	@Column(name = "end_date")
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 
-	@Getter
-	@Setter
 	@Column(name = "priority")
 	private int priority;
 
-	@Getter
-	@Setter
 	@Column(name = "status")
 	private String status;
 	
-
-	
-
 }

@@ -6,36 +6,30 @@ import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Component
+@ToString
+@Getter
+@Setter
 public class ProjectModel {
 
 	
-	@Getter
-	@Setter
 	private long projId;
 	
-	@Getter
-	@Setter
 	private int noOfTask;
 	
-	@Getter
-	@Setter
 	private int completed;
 	
-	@Getter
-	@Setter
 	private int priority;
-	@Getter
-	@Setter
+	
 	private long managerId;
-	@Getter
-	@Setter
+	
 	private String projectDesc;
-	@Getter
-	@Setter
+	
 	private Date startDt;
-	@Getter
-	@Setter
+	
 	private Date endDt;
+	
+
 }

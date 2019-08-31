@@ -2,15 +2,15 @@ package com.fse.projectmanagerservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Getter
+@Setter
 public class ParentTaskModel {
 	
-	@Getter
-	@Setter
 	private long parentId;
 	
-	@Getter
-	@Setter
 	private String parentTask;
 
 }

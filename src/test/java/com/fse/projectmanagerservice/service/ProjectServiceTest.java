@@ -1,10 +1,8 @@
 package com.fse.projectmanagerservice.service;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fse.projectmanagerservice.dao.ProjectDao;
 import com.fse.projectmanagerservice.entity.Project;
-import com.fse.projectmanagerservice.model.ProjectModel;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,14 +34,14 @@ public class ProjectServiceTest {
 	
 	
 	
-	@Test
-	public void testAddProject() {
-		
-		when(projectDao.save(any(Project.class)))
-		.thenReturn(new Project());
-		
-		assertThat(projectService.addProject(new ProjectModel()),is(instanceOf(Project.class)));
-	}
+	/*
+	 * @Test public void testAddProject() {
+	 * 
+	 * when(projectDao.save(any(Project.class))) .thenReturn(new Project());
+	 * 
+	 * assertThat(projectService.addProject(new
+	 * ProjectModel()),is(instanceOf(Project.class))); }
+	 */
 	
 	@Test
 	public void testGetAllProjects() {

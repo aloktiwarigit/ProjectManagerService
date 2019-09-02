@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.fse.projectmanagerservice.dao.ProjectDao;
 import com.fse.projectmanagerservice.entity.Project;
@@ -32,13 +31,11 @@ public class ProjectServiceTest {
 	@MockBean
 	ProjectDao projectDao;
 	
-	@Autowired
-    private MockMvc mockMvc;
 	
 	@Autowired
 	ProjectService projectService;
 	
-	private static final Long ID = Long.valueOf(1001);
+	
 	
 	@Test
 	public void testAddProject() {

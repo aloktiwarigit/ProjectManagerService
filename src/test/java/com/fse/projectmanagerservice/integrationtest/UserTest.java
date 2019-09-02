@@ -34,7 +34,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fse.projectmanagerservice.dao.UserDao;
-import com.fse.projectmanagerservice.entity.Project;
 import com.fse.projectmanagerservice.entity.User;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,7 +47,7 @@ public class UserTest {
     
     private static final ObjectMapper om = new ObjectMapper();
 	
-	private static final Long ID = Long.valueOf(1001);
+	
 
 	@MockBean
     private UserDao mockUserRepository;

@@ -51,6 +51,7 @@ public class TaskServiceImpl implements TaskService{
 	
 	public List<TaskModel> getAllTasks()
 	{
+		
 		List<TaskModel> taskModelList = new ArrayList<TaskModel>();
 		taskModelList = projUtils.populateTaskModelListObj(taskModelList,taskDao.findAll());
 		
@@ -61,6 +62,7 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public void updateTask(Long taskId, @Valid TaskModel taskModel1) {
 
+		taskModel1.setTaskId(taskId);
 		taskEntity = projUtils.populateTaskEntityObj(taskModel1, taskEntity);
 		
 		taskDao.save(taskEntity);

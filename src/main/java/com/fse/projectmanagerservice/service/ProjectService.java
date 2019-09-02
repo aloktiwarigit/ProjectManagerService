@@ -12,7 +12,7 @@ import com.fse.projectmanagerservice.model.TaskModel;
 public interface ProjectService {
 	
 
-	public Project addProject(ProjectModel projModel);
+	public ProjectModel addProject(ProjectModel projModel);
 
 	public List<ProjectModel> getAllProjects();
 	

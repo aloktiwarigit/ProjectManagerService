@@ -36,7 +36,7 @@ public class ProjectController {
 			"application/json" })
 	public ProjectModel addProject(@RequestBody ProjectModel projectModel) {
 		log.info("Recieved The Request From UI :" + projectModel.toString());
-		projectService.addProject(projectModel);
+		projectModel = projectService.addProject(projectModel);
 		
 		return projectModel;
 	}
@@ -67,12 +67,10 @@ public class ProjectController {
 
 	public  ProjectModel updateProject(@RequestBody @Valid ProjectModel projectModel,@PathVariable("projectId") Long projectId) {
 
-		try {
-			 projectService.updateProject(projectId,projectModel);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return projectModel;
-		}
+		
+			log.info("Project ID Updated:" + projectModel.getProjId());
+			projectModel =  projectService.updateProject(projectId,projectModel);
+		
 
 		return projectModel;
 	}

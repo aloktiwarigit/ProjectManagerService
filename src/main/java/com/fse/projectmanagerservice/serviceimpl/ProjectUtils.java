@@ -60,9 +60,14 @@ public class ProjectUtils {
 			projModel.setStartDt(project.getStartDate());
 			projModel.setPriority(project.getPriority());
 			projModel.setProjectDesc(project.getProjectName());
+			
+			if (project.getUserProject() !=null) 
+			{
 			projModel.setManagerId(project.getUserProject().getUserID());
+			}
 			projModel.setProjId(project.getProjectID());
 			
+			if (project.getTaskList() != null) {
 			List<Task> activeTaskList = project.getTaskList().stream()
 					.filter(task -> "1".equals(task.getStatus()))
 					.collect(Collectors.toList());
@@ -70,8 +75,10 @@ public class ProjectUtils {
 			System.out.println("Project:"+ project.getProjectID()+ "activeTaskList:" + activeTaskList.size());
 			
 			projModel.setCompleted(activeTaskList.size());
+			}
 	        projModel.setNoOfTask(project.getTaskList().size());
 			projModelList.add(projModel);
+			
 			
 		}
 		
@@ -82,7 +89,12 @@ public class ProjectUtils {
 	
 	public Project populateProjEntityObj(ProjectModel projectModel,Project projEntity) 
 	{
-		projEntity = new Project();
+		
+		if (projEntity ==null)
+			projEntity = new Project();
+		
+		if (projectModel.getProjId() !=0L)
+			projEntity.setProjectID(projectModel.getProjId());
 		projEntity.setPriority(projectModel.getPriority());
 		projEntity.setEndDate(projectModel.getEndDt());
 		projEntity.setStartDate(projectModel.getStartDt());
@@ -104,12 +116,15 @@ public class ProjectUtils {
 				taskModel.setParentId(task.getParentTask().getParentID());
 			taskModel.setEndDt(task.getEndDate());
 			taskModel.setPriority(task.getPriority());
-			taskModel.setProjectId(task.getProject().getProjectID());
+			if (task.getProject()!=null)
+				taskModel.setProjectId(task.getProject().getProjectID());
+			
 			taskModel.setStartDt(task.getStartDate());
 			taskModel.setTaskDescription(task.getTaskName());
 			taskModel.setTaskId(task.getTaskID());
 			taskModel.setTaskStatus(task.getStatus());
-			taskModel.setUserId(task.getUser().getUserID());
+			if (task.getStatus()!=null)
+				taskModel.setUserId(task.getUser().getUserID());
 			if (task.getParentTask()!=null)
 				taskModel.setParentDesc(task.getParentTask().getParentTask());
 			
@@ -131,11 +146,13 @@ public class ProjectUtils {
 				taskModel.setParentId(task.getParentTask().getParentID());
 			taskModel.setEndDt(task.getEndDate());
 			taskModel.setPriority(task.getPriority());
+			if (task.getProject()!=null)
 			taskModel.setProjectId(task.getProject().getProjectID());
 			taskModel.setStartDt(task.getStartDate());
 			taskModel.setTaskDescription(task.getTaskName());
 			taskModel.setTaskId(task.getTaskID());
 			taskModel.setTaskStatus(task.getStatus());
+			if (task.getUser()!=null)
 			taskModel.setUserId(task.getUser().getUserID());
 			if (task.getParentTask()!=null)
 				taskModel.setParentDesc(task.getParentTask().getParentTask());

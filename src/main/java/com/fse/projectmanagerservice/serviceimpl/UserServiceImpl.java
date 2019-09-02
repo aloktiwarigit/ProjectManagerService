@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(long userId, UserModel userModel) {
 		
-		
+		userModel.setUserId(userId);
 		userEntity = projUtils.populateUserEntityObj(userModel,userEntity);
 		
 		

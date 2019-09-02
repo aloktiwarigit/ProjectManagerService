@@ -25,7 +25,7 @@ import com.fse.projectmanagerservice.serviceimpl.ProjectUtils;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ProjectTaskServiceTest {
+public class ParentTaskServiceTest {
 
 	@MockBean
     private ParentTaskDao parentTaskDaoMock;
@@ -54,8 +54,11 @@ public class ProjectTaskServiceTest {
 			when(parentTaskDaoMock.findAll())
 			.thenReturn(parentTaskList);
 			
-			List<ParentTaskModel>  parentTaskModelList =parentTaskService.getAllParentTasks();
-		System.out.println(parentTaskModelList.get(0).getParentId());
+		/*
+		 * List<ParentTaskModel> parentTaskModelList
+		 * =parentTaskService.getAllParentTasks();
+		 * System.out.println(parentTaskModelList.get(0).getParentId());
+		 */
 		assertThat(parentTaskService.getAllParentTasks(), is(notNullValue())); 		
 		}
 	 

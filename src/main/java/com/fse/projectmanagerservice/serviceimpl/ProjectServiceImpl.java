@@ -38,15 +38,18 @@ public class ProjectServiceImpl implements ProjectService{
 	
 	
 	@Override
-	public Project addProject(ProjectModel projModel) {
+	public ProjectModel addProject(ProjectModel projModel) {
 		
 		projEntity = projUtils.populateProjEntityObj(projModel,projEntity);
 		
 	    projEntity =  projectDao.save(projEntity);
 	    
 		
+		projModel.setProjId(projEntity.getProjectID());
+		log.info("Adding Project :"+projModel.getProjId());
+		projUtils.populateProjEntityObj(projModel, projEntity);
 		
-		return projEntity;
+		return projModel;
 	}
 
 	@Override
@@ -60,10 +63,12 @@ public class ProjectServiceImpl implements ProjectService{
 	public ProjectModel updateProject(long projectId,ProjectModel projectModel)
 	{
 		
+		projectModel.setProjId(projectId);
 		projEntity = projUtils.populateProjEntityObj(projectModel, projEntity);
 		projEntity.setProjectID(projectId);
-		
+		projUtils.populateProjEntityObj(projectModel, projEntity);
 		projectDao.save(projEntity);
+		log.info("Project ID Updated In Service:"+projectModel.getProjId()+",Proj ID Passed In Request :" +projectId);
 		return projectModel;
 	}
 
